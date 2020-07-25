@@ -32,7 +32,7 @@ echo ""
 
 echo "Preparing proper environment.."
 sudo apt update
-sudo apt install -y python-dev python3 build-essential libssl-dev libffi-dev python3-dev python3-pip simg2img liblz4-tool 
+sudo apt install -y python-dev python3 build-essential libssl-dev libffi-dev python3-dev python3-pip 
 clear
 
 echo "Preparing proper library.."
@@ -62,22 +62,8 @@ rm -rf $name.enc4 main.py sam-get.zip samcatcher
 echo "You have download the firmware successfully "
 echo ""
 
-link="https://raw.githubusercontent.com/neodevpro/Oneclick/master/"
-f=".sh"
-
-echo "Now Deploying firmware "
-echo ""
-basefw=${model:0:8}
-gete=$link$basefw$f
-cat $name.zip >> base.zip
-wget -N --no-check-certificate $gete && sudo bash $basefw$f
-clear
-
-echo "You have port the rom successfully "
-echo ""
 echo "Samsung Odin Firmware Fame : $name.zip "
 echo ""
-echo "Custom Stock Rom Name : $basefw.zip "
 
 
 echo "Now Uploading firmware "
@@ -92,8 +78,7 @@ quote USER $USER
 quote PASS $PASSWD
 mkdir /Files/Samsung/Firmware/$name
 cd /Files/Samsung/Firmware/$name
-prompt
-mput $basefw.zip $name.zip
+put $name.zip
 quit
 END_SCRIPT
 exit 0
