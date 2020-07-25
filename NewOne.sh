@@ -32,7 +32,7 @@ echo ""
 
 echo "Preparing proper environment.."
 sudo apt update
-sudo apt install -y python-dev python3 build-essential libssl-dev libffi-dev python3-dev python3-pip simg2img liblz4-1 libxml2-dev libxslt1-dev zlib1g-dev lz4 simg2img unzip liblz4-tool liblz4-dev
+sudo apt install -y python-dev python3 build-essential libssl-dev libffi-dev python3-dev python3-pip simg2img liblz4-tool 
 clear
 
 echo "Preparing proper library.."
