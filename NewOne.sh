@@ -81,4 +81,8 @@ cd /Files/Samsung/Firmware/$name
 put $name.zip
 quit
 END_SCRIPT
+
+echo "Firmware Uploaded"
+echo ""
+
 exit 0
