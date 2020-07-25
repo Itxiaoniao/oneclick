@@ -52,7 +52,7 @@ unzip sam-get.zip
 clear
  
 echo "Enter Model and Region (Example:SM-N9500 CHC): "
-model="SM-G9550 TGY"
+model="SM-N9600 TGY"
 info=$(python3 main.py checkupdate $model)
 name=${model:0:8}"_"${model:9:3}"_"${info:0:13}
 python3 main.py download $info $model $name.enc4
