@@ -63,26 +63,5 @@ echo "You have download the firmware successfully "
 echo ""
 
 echo "Samsung Odin Firmware Fame : $name.zip "
-echo ""
 
-
-echo "Now Uploading firmware "
-echo ""
-
-HOST='neodev.ddns.net'
-USER='plmh'
-PASSWD='hellyzlp'
-
-ftp -n $HOST <<END_SCRIPT
-quote USER $USER
-quote PASS $PASSWD
-mkdir /Files/Samsung/Firmware/$name
-cd /Files/Samsung/Firmware/$name
-put $name.zip
-quit
-END_SCRIPT
-
-echo "Firmware Uploaded"
-echo ""
-
-exit 0
+rm NewOne.sh
