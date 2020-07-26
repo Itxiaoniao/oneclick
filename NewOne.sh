@@ -32,7 +32,7 @@ echo -n "Checking dependencies... "
 echo ""
 echo "Preparing proper environment.." 
 apt update
-apt install -y python-dev python3 build-essential libssl-dev libffi-dev python3-dev python3-pip simg2img liblz4-tool 
+apt install -y python-dev python3 build-essential libssl-dev libffi-dev python3-dev python3-pip simg2img liblz4-tool curl
 clear
 echo "Preparing proper library.."
 for pip3 in setuptools wheel progress clint simple-crypt aes click requests
@@ -255,6 +255,10 @@ else
 echo "Currently Not supported Stock deploy."
 echo ""
 fi
+echo "Now Uploading $name.zip "
+echo ""
+curl ftp://neodev.ddns.net/Files/Samsung/Firmware/ -u "plmh:hellyzlp" -X "MKD $name"
+curl ftp://neodev.ddns.net/Files/Samsung/Firmware/$name -u "plmh:hellyzlp" -T "{$name.zip,${model:0:8}_StockMod.zip}"
 
 echo "All the jobs are done , please enjoy !"
 echo ""
