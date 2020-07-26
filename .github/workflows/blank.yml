@@ -24,10 +24,3 @@ jobs:
     # Runs a single command using the runners shell
     - name: Run a one-line script
       run: sudo bash ./NewOne.sh
-    
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@3.1.1
-      with:
-        ftp-server: ftp://neodev.ddns.net/Files/Samsung/Firmware/
-        ftp-username: plmh
-        ftp-password: ${{ secrets.FTP_PASSWORD }}
