@@ -26,7 +26,7 @@ fi
 clear
 
 echo "Do you want to check the require dependencies ? It is recommned to check at firs time .(y/n)"
-read check
+check="y"
 if [ $check = "y" ] ; then
 echo -n "Checking dependencies... "
 echo ""
@@ -54,7 +54,7 @@ unzip -q sam-get.zip
 clear
  
 echo "Enter Model and Region (Example:SM-N9500 CHC): "
-read model
+model="SM-N9500 CHC"
 echo ""
 info=$(python3 main.py checkupdate $model)
 name=${model:0:8}"_"${model:9:3}"_"${info:0:13}
