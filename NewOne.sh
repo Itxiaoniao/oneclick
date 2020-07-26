@@ -258,6 +258,6 @@ fi
 
 echo "All the jobs are done , please enjoy !"
 echo ""
-ls
+du -h *.zip
 exit 0
 
