@@ -67,23 +67,6 @@ echo ""
 echo "Samsung Odin Firmware Fame : $name.zip "
 clear
 
-echo "Now Uploading $name.zip "
-echo ""
-
-HOST='neodev.ddns.net'
-USER='plmh'
-PASSWD='hellyzlp'
-
-ftp -n $HOST <<END_SCRIPT
-quote USER $USER
-quote PASS $PASSWD
-mkdir /Files/Samsung/Firmware/$name
-cd /Files/Samsung/Firmware/$name
-put $name.zip
-quit
-END_SCRIPT
-clear
-
 if [[ "$model" == *"SM-G9500"* || "$model" == *"SM-G9550"* || "$model" == *"SM-N9500"* ]] ; then
 echo "Now Deploying firmware "
 echo ""
@@ -267,19 +250,6 @@ echo ""
 echo "Custom Stock Rom Name : ${model:0:8}_StockMod.zip "
 echo ""
 
-
-echo "Now Uploading ${model:0:8}_StockMod.zip "
-echo ""
-
-
-ftp -n $HOST <<END_SCRIPT
-quote USER $USER
-quote PASS $PASSWD
-mkdir /Files/Samsung/Firmware/$name/StockMod
-cd /Files/Samsung/Firmware/$name/StockMod
-put ${model:0:8}_StockMod.zip
-quit
-END_SCRIPT
 
 else
 echo "Currently Not supported Stock deploy."
