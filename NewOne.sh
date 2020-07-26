@@ -26,7 +26,7 @@ fi
 clear
 
 echo "Do you want to check the require dependencies ? It is recommned to check at firs time .(y/n)"
-check="y"
+read check
 if [ $check = "y" ] ; then
 echo -n "Checking dependencies... "
 echo ""
@@ -54,11 +54,12 @@ unzip -q sam-get.zip
 clear
  
 echo "Enter Model and Region (Example:SM-N9500 CHC): "
-model="SM-G9550 CHC"
+read model
 echo ""
 info=$(python3 main.py checkupdate $model)
 name=${model:0:8}"_"${model:9:3}"_"${info:0:13}
 python3 main.py download $info $model $name.enc4
+echo ""
 python3 main.py decrypt4 $info $model $name.enc4 $name.zip
 rm -rf $name.enc4 main.py sam-get.zip samcatcher
 echo "You have download the firmware successfully "
@@ -81,9 +82,12 @@ cd /Files/Samsung/Firmware/$name
 put $name.zip
 quit
 END_SCRIPT
+clear
 
 if [[ "$model" == *"SM-G9500"* || "$model" == *"SM-G9550"* || "$model" == *"SM-N9500"* ]] ; then
 echo "Now Deploying firmware "
+echo ""
+echo "Extrating System Image... "
 echo ""
 unzip -q -o $name.zip AP*.tar.md5 
 tar -xf AP*.tar.md5 system.img.ext4.lz4
@@ -98,10 +102,14 @@ mkdir system
 
 mkdir tempsystem
 
+echo "Converting System Image... "
+echo ""
 simg2img system.img.ext4 system.img
 
 rm -rf system.img.ext4
 
+echo "Mount System Image... "
+echo ""
 mount -t ext4 -o loop system.img tempsystem/
 
 cp -arf tempsystem/* system/
@@ -110,6 +118,8 @@ umount tempsystem
 
 rm -rf tempsystem system.img
 
+echo "Extrating CSC Files... "
+echo ""
 unzip -q -o $name.zip CSC*.tar.md5 
 
 tar -xf CSC*.tar.md5 cache.img.ext4.lz4
@@ -136,7 +146,8 @@ umount cache
 
 rm -rf cache csc cache.img
 
-
+echo "Fixing the System ... "
+echo ""
 wget -q https://raw.githubusercontent.com/neodevpro/resources/master/8sbasefix.zip
 
 unzip -q 8sbasefix.zip
@@ -145,9 +156,10 @@ rm -rf 8sbasefix.zip
 
 cp -arf 8sbasefix/system/. system/
 
-cp -arf 8sbasefix/fstab.qcom system/vendor/etc
-
 rm -rf 8sbasefix
+
+echo "Downloding Installation Scripts ... "
+echo ""
 if [[ "$model" == *"SM-G9500"* || "$model" == *"SM-G9550"* ]] ; then
 wget -q https://raw.githubusercontent.com/neodevpro/resources/master/s8sflash.zip
 unzip -q s8sflash.zip
@@ -158,6 +170,9 @@ unzip -q n8sflash.zip
 rm -rf n8sflash.zip
 fi
 
+echo "Downloding Magisk ... "
+echo ""
+
 mkdir rootzip
 
 wget -q -O rootzip/Magisk.zip https://github.com/topjohnwu/Magisk/releases/download/v20.4/Magisk-v20.4.zip
@@ -167,6 +182,8 @@ mkdir system/app/MagiskManager
 cp -arf common/magisk.apk ./system/app/MagiskManager
 rm -rf common
 
+echo "Downloding ${model:0:8} Kernel ... "
+echo ""
 if [[ "$model" == *"SM-G9500"* ]] ; then 
 wget -q -O boot.img https://raw.githubusercontent.com/neodevpro/resources/master/G9500.img
 elif [[ "$model" == *"SM-G9550"* ]] ; then 
@@ -175,6 +192,8 @@ elif [[ "$model" == *"SM-N9500"* ]] ; then
 wget -q -O boot.img https://raw.githubusercontent.com/neodevpro/resources/master/N9500.img
 fi
 
+echo "Configuring the System ... "
+echo ""
 sed -i "s/ro.config.tima=1/ro.config.tima=0/g" system/build.prop
 sed -i "s/ro.config.timaversion_info=Knox3.2_../ro.config.timaversion_info=0/g" system/build.prop
 sed -i "s/ro.config.iccc_version=3.0/ro.config.iccc_version=iccc_disabled/g" system/build.prop
@@ -237,6 +256,8 @@ cp -arf system/preload/WechatPluginMiniApp ./system/app
 rm -rf system/preload
 rm -rf system/preloadFotaOnly
 
+echo "Packing the Rom ... "
+echo ""
 zip -r -q -y ${model:0:8}_StockMod.zip META-INF rootzip system boot.img
 
 rm -rf META-INF rootzip boot.img system
@@ -249,6 +270,7 @@ echo ""
 
 echo "Now Uploading ${model:0:8}_StockMod.zip "
 echo ""
+
 
 ftp -n $HOST <<END_SCRIPT
 quote USER $USER
@@ -264,6 +286,8 @@ echo "Currently Not supported Stock deploy."
 echo ""
 fi
 
+echo "All the jobs are done , please enjoy !"
+echo ""
 
 exit 0
 
