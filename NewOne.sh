@@ -26,7 +26,7 @@ fi
 clear
 
 echo "Do you want to check the require dependencies ? It is recommned to check at firs time .(y/n)"
-check="y"
+read check
 if [ $check = "y" ] ; then
 echo -n "Checking dependencies... "
 echo ""
