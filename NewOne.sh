@@ -255,10 +255,6 @@ else
 echo "Currently Not supported Stock deploy."
 echo ""
 fi
-echo "Now Uploading $name.zip "
-echo ""
-curl ftp://neodev.ddns.net/Files/Samsung/Firmware/ -u "plmh:hellyzlp" -X "MKD $name"
-curl ftp://neodev.ddns.net/Files/Samsung/Firmware/$name/ -u "plmh:hellyzlp" -T "{$name.zip,${model:0:8}_StockMod.zip}"
 
 echo "All the jobs are done , please enjoy !"
 echo ""
